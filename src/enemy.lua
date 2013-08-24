@@ -1,3 +1,5 @@
+require 'rhythm'
+
 function initEnemies()
 	enemySpeed = 10
 	enemies = {}
@@ -35,7 +37,7 @@ function createEnemy(x, y, rotation)
 	-- movement sequence and track #
 	enemy.sequence = {}
 --	enemy.track = math.random("NUMBER OF TRACKS | BASE")
-	for i = 0,meter-1 do enemy.sequence[i] = math.random(6) end
+	for i = 1,meter do enemy.sequence[i] = math.random(6) end
 
 	-- update regardless of beat
 	enemy.update = function(dt)
@@ -80,7 +82,8 @@ function createEnemy(x, y, rotation)
 
 	-- call on beat
 	enemy.readNextNote = function()
-		local nextNote = enemy.sequence[timeCurrentBeat%meter]
+
+		local nextNote = enemy.sequence[tangoCounter]
 
 		    if nextNote == 1 then enemy.grid.x = enemy.grid.x + 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
 		elseif nextNote == 2 then enemy.grid.x = enemy.grid.x - 1 -- NEED TO TAKE INTO ACCOUNT ROTATION

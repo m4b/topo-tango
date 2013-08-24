@@ -16,7 +16,7 @@ function love.load()
 	initCamera()
 	initRhythm()
 
-	local grid = genLevel()
+	grid = genLevel()
 	entities = {}
 
 	for i = 0, 39 do for j = 0, 29 do if grid[i][j] == 1 then

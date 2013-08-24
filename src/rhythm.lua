@@ -1,4 +1,4 @@
-require 'enemies'
+--require 'enemies'
 
 function initRhythm ()
 
@@ -105,9 +105,10 @@ function updateRhythm (dt)
 	 print ("score: " .. #score)
       end
 
-      updateEnemies()
+
 
       if current[tangoCounter] then
+	 updateEnemies()
 	 love.audio.play(score[scoreCounter])
       end
 
