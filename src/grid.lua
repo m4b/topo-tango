@@ -1,40 +1,52 @@
-grid = class:new()
+function genGrid(copy)
+	local grid = {}
+	for i = 0, 39 do
+		grid[i] = {}
+		for j = 0,29 do
+			if copy then grid[i][j] = copy[i][j]
+			        else grid[i][j] = math.min(math.random(0,1),1)
+				     grid[i][j] = 1 - grid[i][j]
+			end
+		end
+	end
 
-function grid:init()
-
-   self.grid = {}
-   self.width = 40
-   self.height = 30
-   self.dim = 16
-   self.debug = true
-
-   for i=1,self.width do
---      self.grid[i] = {}
-      for j=1,self.height do
-	 local create = math.random(0,5)
-	 if create == 1 then
-	    local p = {}
-	    p.body = love.physics.newBody(world.world, (i*self.dim), (j*self.dim), "static")
-	    p.shape = love.physics.newRectangleShape(self.dim*-.5, self.dim*-.5, self.dim, self.dim)
-	    p.fixture = love.physics.newFixture(p.body, p.shape)
-	    p.fixture:setUserData("grid_" .. i .. "_" .. j)
-	    table.insert(self.grid,p)
-	    --	 self.grid[i][j] = 0
-	 end
-      end
-   end
-
+	return grid
 end
 
-function grid:draw()
-   
-   love.graphics.setColor(255,0,0)
-   for i=1,#self.grid do
+function genLevel()
+	local grid = genGrid()
 
-      love.graphics.polygon("fill", self.grid[i].body:getWorldPoints(self.grid[i].shape:getPoints()))
-      
---	    love.graphics.rectangle("fill", i*16, j*16, 16, 16)
-   end
+	for generations = 0, 8 do
+		local oldGrid = genGrid(grid)
+		for i = 1, 38 do for j = 1, 28 do
+			local count = oldGrid[i  ][j-1]+
+			              oldGrid[i  ][j+1]+
+			              oldGrid[i-1][j  ]+
+			              oldGrid[i+1][j  ]+
+			              oldGrid[i+1][j+1]+
+			              oldGrid[i+1][j-1]+
+			              oldGrid[i-1][j+1]+
+			              oldGrid[i-1][j-1]
+			if grid[i][j] == 0 and 6 <= count and count <=8 then grid[i][j] = 1
+			elseif grid[i][j] == 1 and (3 > count or count > 8) then grid[i][j] = 0
+			end
+		end end
+	end
 
+	for i = 0, 39 do for _, j in pairs({0, 29}) do grid[i][j] = 1 end end
+	for _, i in pairs({0, 39}) do for j = 0, 29 do grid[i][j] = 1 end end
+
+	return grid
 end
 
+function getEmptyTile(grid)
+	local coords = {}
+	coords.x = math.random(40)-1
+	coords.y = math.random(30)-1
+	while grid[coords.x][coords.y] == 1 do
+		coords.x = math.random(40)-1
+		coords.y = math.random(30)-1
+	end
+
+	return coords
+end
