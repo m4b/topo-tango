@@ -48,26 +48,29 @@ end
 
 function player:move(dt)
 
-   local rot = self.players[1].body:getAngle()
-   local xrotfactor = math.sin(rot)
-   local yrotfactor = math.cos(rot)
+   for i=1,#self.players do
+      local rot = self.players[1].body:getAngle()
+      local xrotfactor = math.sin(rot)
+      local yrotfactor = math.cos(rot)
 
-   if love.keyboard.isDown ("w") then
-      self.players[1].body:applyForce(self.speed * xrotfactor,-self.speed * yrotfactor)
-   end
+      if love.keyboard.isDown ("w") then
+	 self.players[1].body:applyForce(self.speed * xrotfactor,-self.speed * yrotfactor)
+      end
 
-   if love.keyboard.isDown("s") then
-      self.players[1].body:applyForce(-self.speed * xrotfactor,self.speed * yrotfactor)
-   end
+      if love.keyboard.isDown("s") then
+	 self.players[1].body:applyForce(-self.speed * xrotfactor,self.speed * yrotfactor)
+      end
 
-   if love.keyboard.isDown("a")then
-      self.players[1].body:setAngle(rot - (self.rotSpeed * dt))
+      if love.keyboard.isDown("a")then
+	 self.players[1].body:setAngle(rot - (self.rotSpeed * dt))
 
-   end
+      end
       
-   if love.keyboard.isDown("d") then
-      self.players[1].body:setAngle(rot + (self.rotSpeed * dt))
-   end
+      if love.keyboard.isDown("d") then
+	 self.players[1].body:setAngle(rot + (self.rotSpeed * dt))
+      end
+
+      end
 
 
 end

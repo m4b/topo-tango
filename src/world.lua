@@ -5,10 +5,8 @@ function world:init()
    love.physics.setMeter(64) -- the height of a meter our worlds will be 64px
    self.world = love.physics.newWorld(0, 0, true) -- create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 0
    self.world:setCallbacks(beginContact, endContact, preSolve, postSolve) -- name callbacks 
-   self.width = 800 -- hardcoded, remove
-   self.height = 600 -- hardcoded, remove
-   
-   self.tilesize = 16
+   self.width = 640 -- hardcoded, remove
+   self.height = 480 -- hardcoded, remove
 
    -- world boundaries
    self.right = {}
