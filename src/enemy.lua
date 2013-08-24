@@ -1,10 +1,12 @@
 require 'rhythm'
 
 function initEnemies()
-	enemySpeed = 10
+	enemyWalkSpeed = 100
+	enemyRotationSpeed = 10
 	enemies = {}
+	numEnemies = 100
 
-	for i=1,10 do
+	for i=1,numEnemies do
 		local emptyCoords = getEmptyTile(grid)
 		table.insert(enemies, createEnemy(emptyCoords.x, emptyCoords.y, 0))
 	end
@@ -50,58 +52,70 @@ function createEnemy(x, y, rotation)
 		local gridRot = enemy.grid.rotation
 
 		if enemy.goal.x < gridX then
-			enemy.goal.x = enemy.goal.x + dt * enemySpeed
+			enemy.goal.x = enemy.goal.x + dt * enemyWalkSpeed
 			if enemy.goal.x > gridX then enemy.goal.x = gridX end
 		end
 
 		if enemy.goal.x > gridX then
-			enemy.goal.x = enemy.goal.x - dt * enemySpeed
+			enemy.goal.x = enemy.goal.x - dt * enemyWalkSpeed
 			if enemy.goal.x < gridX then enemy.goal.x = gridX end
 		end
 
 		if enemy.goal.y < gridY then
-			enemy.goal.y = enemy.goal.y + dt * enemySpeed
+			enemy.goal.y = enemy.goal.y + dt * enemyWalkSpeed
 			if enemy.goal.y > gridY then enemy.goal.y = gridY end
 		end
 
 		if enemy.goal.y > gridY then
-			enemy.goal.y = enemy.goal.y - dt * enemySpeed
+			enemy.goal.y = enemy.goal.y - dt * enemyWalkSpeed
 			if enemy.goal.y < gridY then enemy.goal.y = gridY end
 		end
 
 		if enemy.goal.rotation < gridRot then
-			enemy.goal.rotation = enemy.goal.rotation + dt * enemySpeed
+			enemy.goal.rotation = enemy.goal.rotation + dt * enemyRotationSpeed
 			if enemy.goal.rotation > gridRot then enemy.goal.rotation = gridRot end
 		end
 
 		if enemy.goal.rotation > gridRot then
-			enemy.goal.rotation = enemy.goal.rotation - dt * enemySpeed
+			enemy.goal.rotation = enemy.goal.rotation - dt * enemyRotationSpeed
 			if enemy.goal.rotation < gridRot then enemy.goal.rotation = gridRot end
 		end
+
+	--	local phyX = enemy.physics.body:getX()
+	--	local phyY = enemy.physics.body:getY()
+	--	enemy.physics.body:setX(phyX + ((enemy.goal.x - phyX) * dt * enemyWalkSpeed))
+	--	enemy.physics.body:setY(phyY + ((enemy.goal.y - phyY) * dt * enemyWalkSpeed))
+		enemy.physics.body:setX(enemy.goal.x)
+		enemy.physics.body:setY(enemy.goal.y)
 	end
 
 	-- call on beat
 	enemy.readNextNote = function()
-
 		local nextNote = enemy.sequence[tangoCounter]
+		local newX = enemy.grid.x
+		local newY = enemy.grid.y
 
-		    if nextNote == 1 then enemy.grid.x = enemy.grid.x + 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
-		elseif nextNote == 2 then enemy.grid.x = enemy.grid.x - 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
-		elseif nextNote == 3 then enemy.grid.y = enemy.grid.y + 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
-		elseif nextNote == 4 then enemy.grid.y = enemy.grid.y - 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
+		    if nextNote == 1 then newX = newX + 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
+		elseif nextNote == 2 then newX = newX - 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
+		elseif nextNote == 3 then newY = newY + 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
+		elseif nextNote == 4 then newY = newY - 1 -- NEED TO TAKE INTO ACCOUNT ROTATION
 		elseif nextNote == 5 then enemy.grid.rotation = enemy.grid.rotation + 1
 		elseif nextNote == 6 then enemy.grid.rotation = enemy.grid.rotation - 1
 		end
 
 		-- VALIDATE MOVEMENT
+		if grid[newX][newY] == 0 then
+			grid[enemy.grid.x][enemy.grid.y] = 0
+			enemy.grid.x = newX
+			enemy.grid.y = newY
+			grid[newX][newY] = 2
+		end
 	end
 
 	-- draw
 	enemy.draw = function()
 		love.graphics.push()
-		--	love.graphics.translate(enemy.physics.body:getX()+8,enemy.physics.body:getY()+8)
-		--	love.graphics.translate(enemy.goal.x+8,enemy.goal.y+8)
-			love.graphics.translate(enemy.grid.x*16+8,enemy.grid.y*16+8)
+			love.graphics.translate(enemy.goal.x+8,enemy.goal.y+8)
 			love.graphics.rotate(enemy.goal.rotation*math.pi*.5)
 			love.graphics.rectangle('fill',-8,-8,16,16)
 		love.graphics.pop()
