@@ -1,3 +1,5 @@
+require 'enemies'
+
 function initRhythm ()
 
    soundNames = 
@@ -69,14 +71,17 @@ function updateRhythm (dt)
    if tempoCounter >= tempo then
       
       tempoCounter = tempoCounter - tempo
+
       tangoCounter = tangoCounter + 1
       scoreCounter = scoreCounter + 1
       switchCounter = switchCounter + 1
-      
+
       if switchCounter >= switchSpeed then 
 	 current = tango[math.random(1,#tango)]
 	 switchCounter = 1
       end
+
+      print(gridtest)
 
       print("current contents:")
       if debug then
@@ -92,13 +97,15 @@ function updateRhythm (dt)
       if scoreCounter > #score then
 	 scoreCounter = 1
       end
-      
+
       if debug then
 	 print ("tangoCounter: " .. tangoCounter)
 	 print ("scoreCounter: " .. scoreCounter)
 	 print ("tango: " .. #current)
 	 print ("score: " .. #score)
       end
+
+      updateEnemies()
 
       if current[tangoCounter] then
 	 love.audio.play(score[scoreCounter])
