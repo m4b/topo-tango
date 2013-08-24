@@ -3,6 +3,7 @@ function love.load()
    require "class"
    require "world"
    require "player"
+   require "grid"
 
    globalDebug = true
 
@@ -13,6 +14,7 @@ function love.load()
 
    world:init() -- initialize world
    player:init()
+   grid:init() -- biodigital jazz
 
 --   bg = love.graphics.newImage("graphics/star-background.png")
 
@@ -26,6 +28,9 @@ function love.draw(dt)
   -- love.graphics.draw(bg,0,0)
 
    player:draw()
+   grid:draw()
+
+   love.graphics.setColor(0,255,0)
    love.graphics.print("FPS: " .. love.timer.getFPS(), 0, 0)
    if globalDebug then
       love.graphics.print(text, 0, 0)
@@ -41,6 +46,7 @@ function love.update (dt)
 
    world.world:update(dt) -- sets world in motion
 --   player:update(dt)
+   player:move(dt)
 
     if string.len(text) > 768 then    -- cleanup when 'text' gets too long
         text = ""
