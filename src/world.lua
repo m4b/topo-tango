@@ -7,6 +7,8 @@ function world:init()
    self.world:setCallbacks(beginContact, endContact, preSolve, postSolve) -- name callbacks 
    self.width = 800 -- hardcoded, remove
    self.height = 600 -- hardcoded, remove
+   
+   self.tilesize = 16
 
    -- world boundaries
    self.right = {}
