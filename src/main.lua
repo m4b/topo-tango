@@ -5,6 +5,7 @@ require 'drawing'
 require 'physics'
 require 'player'
 require 'rhythm'
+require 'enemy'
 
 function love.load()
    love.graphics.setMode(640, 480) --, false, true, 4)
@@ -35,6 +36,7 @@ function love.load()
 	local blueCoords = getEmptyTile(grid)
 	table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 0, 0, 255, 'up', 'down', 'left', 'right'))
 
+	initEnemies()
 end
 
                                 ---- update ----
@@ -46,6 +48,10 @@ function love.update(dt)
 
 	for _, i in pairs(players) do
 		i.controls(dt)
+	end
+
+	for _, i in pairs(enemies) do
+		i.update(dt)
 	end
 end
 
@@ -66,6 +72,11 @@ function love.draw()
 
 	for _, i in pairs(players) do
 		i.setColor()
+		i.draw()
+	end
+
+	love.graphics.setColor(255,255,255)
+	for _, i in pairs(enemies) do
 		i.draw()
 	end
 end
