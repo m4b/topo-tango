@@ -4,14 +4,16 @@ require 'grid'
 require 'drawing'
 require 'physics'
 require 'player'
+require 'rhythm'
 
 function love.load()
-	love.graphics.setMode(640, 480)
+   love.graphics.setMode(640, 480) --, false, true, 4)
 	windowWidth = love.graphics.getWidth()
 	windowHeight = love.graphics.getHeight()
 
 	initWorld()
 	initCamera()
+	initRhythm()
 
 	local grid = genLevel()
 	entities = {}
@@ -40,6 +42,7 @@ end
 function love.update(dt)
 	updateCamera(dt)
 	updateWorld(dt)
+	updateRhythm(dt)
 
 	for _, i in pairs(players) do
 		i.controls(dt)
@@ -52,8 +55,9 @@ function love.draw()
 	drawCamera()
 
 	love.graphics.setColor(32,32,32)
+	-- draw the tiles
 	for i = 0, 39 do for j = 0, 29 do
-		love.graphics.rectangle('fill',i*16+2,j*16+2,12,12)
+	--	love.graphics.rectangle('fill',i*16+2,j*16+2,12,12)
 	end end
 
 	for _, i in pairs(entities) do

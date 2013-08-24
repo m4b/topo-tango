@@ -4,7 +4,7 @@ function genGrid(copy)
 		grid[i] = {}
 		for j = 0,29 do
 			if copy then grid[i][j] = copy[i][j]
-			        else grid[i][j] = math.min(math.random(0,1),1)
+			        else grid[i][j] = math.min(math.random(0,2),1)
 				     grid[i][j] = 1 - grid[i][j]
 			end
 		end
