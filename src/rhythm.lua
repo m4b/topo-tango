@@ -56,17 +56,11 @@ function initRhythm ()
       score[i] = sounds[r]
    end
 
---   love.audio.play(sounds[1])
-   
 end
 
 function updateRhythm (dt)
 
-   -- switch here
-
    tempoCounter = dt + tempoCounter
-
---   print ("tempoCounter: " .. tempoCounter)
 
    if tempoCounter >= tempo then
       
@@ -104,8 +98,6 @@ function updateRhythm (dt)
 	 print ("tango: " .. #current)
 	 print ("score: " .. #score)
       end
-
-
 
       if current[tangoCounter] then
 	 updateEnemies()
