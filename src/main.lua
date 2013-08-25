@@ -13,40 +13,44 @@ function love.load()
 
    globalDebug = false
 
+   font = love.graphics.setNewFont(34)
+
    love.graphics.setMode(640, 480) --, false, true, 4)
-	windowWidth = love.graphics.getWidth()
-	windowHeight = love.graphics.getHeight()
+   windowWidth = love.graphics.getWidth()
+   windowHeight = love.graphics.getHeight()
 
-	initWorld()
+   initWorld()
 
-	grid = genLevel()
-	entities = {}
+   grid = genLevel()
 
-	for i = 0, 39 do for j = 0, 29 do if grid[i][j] == 1 then
-		local entity = {}
-		addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'grid')
-		entity.draw = function() -- overwrite default physicsRectangle draw
-			love.graphics.setColor(0,153,255)
-			love.graphics.rectangle('fill', i*16, j*16+1, 16, 14)
-			love.graphics.rectangle('fill', i*16+1, j*16, 14, 16)
-		end
-		table.insert(entities, entity)
-	end end end
+   entities = {}
 
-	players = {}
-	local redCoords = getEmptyTile(grid)
-	table.insert(players, createPlayer(redCoords.x*16+8, redCoords.y*16+8, 255, 153, 0, 'w', 's', 'a', 'd'))
-	local blueCoords = getEmptyTile(grid)
-	table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 153, 255, 0, 'up', 'down', 'left', 'right'))
+   for i = 0, 39 do for j = 0, 29 do if grid[i][j] == 1 then
+	    local entity = {}
+	    addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'grid')
+	    entity.draw = function() -- overwrite default physicsRectangle draw
+	       love.graphics.setColor(0,153,255)
+	       love.graphics.rectangle('fill', i*16, j*16+1, 16, 14)
+	       love.graphics.rectangle('fill', i*16+1, j*16, 14, 16)
+	    end
+	    table.insert(entities, entity)
+				     end end end
+
+   players = {}
+   local redCoords = getEmptyTile(grid)
+   table.insert(players, createPlayer(redCoords.x*16+8, redCoords.y*16+8, 255, 153, 0, 'w', 's', 'a', 'd'))
+   local blueCoords = getEmptyTile(grid)
+   table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 153, 255, 0, 'up', 'down', 'left', 'right'))
 
 
-	initCamera()
-	initRhythm()
-	initEnemies()
-	initParticle()
---	initPlate()
+--   initCamera()
+   initRhythm()
+   initEnemies()
+   initParticle()
+   --	initPlate()
 
-	text = "" --- callback debug string
+   
+   text = "" --- callback debug string
 
 end
 
@@ -54,7 +58,7 @@ end
                                 ---- update ----
 
 function love.update(dt)
-	updateCamera(dt)
+--	updateCamera(dt)
 	updateWorld(dt)
 	updateRhythm(dt)
 	
@@ -77,7 +81,7 @@ end
                                 ---- render ----
 
 function love.draw()
-	drawCamera()
+--	drawCamera()
 
 	love.graphics.setColor(32,32,32)
 	-- draw the tiles
@@ -101,7 +105,8 @@ function love.draw()
 
 	drawParticles()
 
---	drawPlate()
+	love.graphics.setColor(255,255,255)
+	love.graphics.printf("Let's Tango!",windowWidth/2,windowHeight/2,200,'center')
 
 end
 
