@@ -27,6 +27,7 @@ function addPhysicsCircleTo(object, x, y, radius, mode, callbackName) -- x,y = c
 	p.body    = love.physics.newBody(world, x, y, mode)
 	p.shape   = love.physics.newCircleShape(radius)
 	p.fixture = love.physics.newFixture(p.body, p.shape)
+	p.fixture:setUserData(callbackName)
 	object.physics = p
 
 	object.draw = function()

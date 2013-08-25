@@ -70,7 +70,6 @@ function love.update(dt)
 	   text = ""
 	end
 
-
 end
 
                                 ---- render ----

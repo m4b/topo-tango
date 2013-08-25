@@ -14,7 +14,7 @@ function createPlayer(x, y,                  -- position
                       up, down, left, right) -- controls
 	local player = {}
 	numPlayers = numPlayers + 1 -- added
-	addPhysicsCircleTo(player, x, y, 7, 'dynamic', 'player')
+	addPhysicsCircleTo(player, x, y, 7, 'dynamic', 'player'..numPlayers)
 	addColorTo(player, r, g, b)
 	addControlsTo(player, up, down, left, right)
 
