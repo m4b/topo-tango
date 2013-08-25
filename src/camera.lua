@@ -24,10 +24,10 @@ function updateCamera(dt)
 		if i.physics.body:getY() > maxY then maxY = i.physics.body:getY() end
 	end
 
-	minX = minX - 128
-	maxX = maxX + 128
-	minY = minY - 128
-	maxY = maxY + 128
+	minX = minX - 96
+	maxX = maxX + 96
+	minY = minY - 96
+	maxY = maxY + 96
 
 	camera.goal.x = (maxX+minX)/2
 	camera.goal.y = (maxY+minY)/2

@@ -5,7 +5,7 @@ function initEnemies()
 	enemyWalkSpeed = 100
 	enemyRotationSpeed = 10
 	enemies = {}
-	numEnemies = 20
+	numEnemies = 0
 
 	for i=1,numEnemies do
 		local emptyCoords = getEmptyTile()

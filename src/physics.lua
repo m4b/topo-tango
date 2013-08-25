@@ -38,3 +38,9 @@ function addPhysicsCircleTo(object, x, y, radius, mode, callbackName) -- x,y = c
 		                     32)
 	end
 end
+
+function modPhysicsRectangleDraw(object)
+	object.draw = function()
+		love.graphics.polygon('fill',object.physics.body:getWorldPoints(object.physics.shape:getPoints()))
+	end
+end
