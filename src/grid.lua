@@ -1,3 +1,31 @@
+function initGrid()
+	grid = genLevel()
+	entities = {}
+
+	for i = 0, 39 do for j = 0, 29 do if grid[i][j] == 1 then
+		local entity = {}
+		addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'CALLBACK')
+		entity.draw = function() -- overwrite default physicsRectangle draw
+			love.graphics.setColor(0,153,255)
+			love.graphics.rectangle('fill', i*16, j*16+1, 16, 14)
+			love.graphics.rectangle('fill', i*16+1, j*16, 14, 16)
+		end
+		table.insert(entities, entity)
+	end end end
+end
+
+function drawGrid()
+	-- draw the tiles
+	love.graphics.setColor(32,32,32)
+	for i = 0, 39 do for j = 0, 29 do
+		love.graphics.rectangle('fill',i*16+2,j*16+2,12,12)
+	end end
+
+	for _, i in pairs(entities) do
+		i.draw()
+	end
+end
+
 function genGrid(copy)
 	local grid = {}
 	for i = 0, 39 do

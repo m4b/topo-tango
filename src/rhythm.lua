@@ -114,8 +114,8 @@ function updateRhythm (dt)
 	 print ("score: " .. #score)
       end
 
+      enemyStep()
       if current[tangoCounter] then
-	 updateEnemies()
 	 love.audio.play(score[scoreCounter])
       end
 

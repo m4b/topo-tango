@@ -1,3 +1,24 @@
+function initPlayers()
+	players = {}
+	local redCoords = getEmptyTile(grid)
+	table.insert(players, createPlayer(redCoords.x*16+8, redCoords.y*16+8, 255, 153, 0, 'w', 's', 'a', 'd'))
+	local blueCoords = getEmptyTile(grid)
+	table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 153, 255, 0, 'up', 'down', 'left', 'right'))
+end
+
+function drawPlayers()
+	for _, i in pairs(players) do
+		i.setColor()
+		i.draw()
+	end
+end
+
+function processControls(dt)
+	for _, i in pairs(players) do
+		i.controls(dt)
+	end
+end
+
 function addControlsTo(object, up, down, left, right) -- assumes object has physics.body
 	object.controls = function(dt)
 		if love.keyboard.isDown(up)    then object.physics.body:applyForce(       0, -dt*100) end
