@@ -1,13 +1,14 @@
 require 'rhythm'
 
 function initEnemies()
+	enemyCounter = 0
 	enemyWalkSpeed = 100
 	enemyRotationSpeed = 10
 	enemies = {}
-	numEnemies = 100
+	numEnemies = 10
 
 	for i=1,numEnemies do
-		local emptyCoords = getEmptyTile(grid)
+		local emptyCoords = getEmptyTile()
 		table.insert(enemies, createEnemy(emptyCoords.x, emptyCoords.y, 0))
 	end
 end
@@ -31,10 +32,32 @@ function drawEnemies()
 	end
 end
 
+function getEnemyByName(name)
+	for _,i in pairs(enemies) do
+		if name == i.physics.fixture:getUserData() then
+			return i
+		end
+	end
+end
+
+function deleteEnemy(enemy)
+	enemy.physics.body:destroy()
+	for index,i in pairs(enemies) do
+		if enemy == i then
+			table.remove(enemies,index)
+			return
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+
 function createEnemy(x, y, rotation)
 	local enemy = {}
 
 	enemy.invertedStep = math.random(0,1)
+	enemy.colorState = math.random(0,1)
+	enemy.hp = 5
 
 	-- goal location & rotation in grid, exact
 	enemy.grid = {}
@@ -49,7 +72,8 @@ function createEnemy(x, y, rotation)
 	enemy.goal.rotation = rotation*math.pi/2
 
 	-- location & rotation in grid, pixel val
-	addPhysicsRectangleTo(enemy, x*16, y*16, 16, 16, 'static', "CALLBACK")
+	addPhysicsRectangleTo(enemy, x*16, y*16, 16, 16, 'static', "enemy_"..enemyCounter)
+	enemyCounter = enemyCounter + 1
 
 	-- movement sequence and track #
 	enemy.sequence = {}
@@ -139,7 +163,7 @@ function createEnemy(x, y, rotation)
 			end
 
 			-- VALIDATE MOVEMENT
-			if grid[newX][newY] == 0 then
+			if grid[newX][newY] < 2 then
 				grid[enemy.grid.x][enemy.grid.y] = 0
 				enemy.grid.x = newX
 				enemy.grid.y = newY
@@ -148,16 +172,16 @@ function createEnemy(x, y, rotation)
 		end
 	end
 
-	-- draw
-		enemy.draw = function()
+	enemy.draw = function()
 		love.graphics.push()
 			love.graphics.translate(enemy.goal.x+8,enemy.goal.y+8)
 			love.graphics.rotate(enemy.goal.rotation*math.pi*.5)
 			love.graphics.setColor(255,255,255)
 			love.graphics.rectangle('fill',-8,-8,16,16)
-			if enemy.invertedStep == 0 then love.graphics.setColor(255,153,0);
-			                    else love.graphics.setColor(153,255,0);end
-			love.graphics.rectangle('fill',-5,-5,10,10)
+			if enemy.colorState == 0 then love.graphics.setColor(255,153,0);
+				                 else love.graphics.setColor(153,255,0);end
+			love.graphics.rectangle('fill',-6,-6,12,12)
+			love.graphics.rectangle('fill',-2,4,4,8)
 		love.graphics.pop()
 	end
 

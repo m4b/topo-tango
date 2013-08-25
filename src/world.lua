@@ -1,5 +1,5 @@
 function initWorld()
-	love.physics.setMeter(100)
+	love.physics.setMeter(10)
 	world = love.physics.newWorld(0, 0, false)
 	world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 end
