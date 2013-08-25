@@ -4,6 +4,8 @@ end
 
 function spawnBoss()
 	boss = {}
+	boss.maxHp = 10
+	boss.hp = boss.maxHp
 	local coords = getEmptyTile()
 	local x = coords.x*16+8
 	local y = coords.y*16+8
@@ -21,6 +23,8 @@ function spawnBoss()
 			love.graphics.arc('fill',0,0,24,0,math.pi,16)
 			love.graphics.setColor(153,255,0)
 			love.graphics.arc('fill',0,0,24,-math.pi,0,16)
+			love.graphics.setColor(255,255,255,128)
+			love.graphics.circle('fill',0,0,(math.sin(love.timer.getTime()*10)*.5+.5)*(24*(boss.hp/boss.maxHp)))
 		love.graphics.pop()
 	end
 end
@@ -45,14 +49,23 @@ function updateBoss(dt)
 		bossSpawned = true
 		spawnBoss()
 	end
-
-	if bossSpawned then
-
-	end
 end
 
 function collideWithBoss(normX,normY,player)
-	print(math.atan2(normY,normX))
+	local normAngle = math.atan2(normY,normX)
+	local correctedAngle = normAngle-boss.physics.body:getAngle()
+	while correctedAngle < -math.pi do correctedAngle = correctedAngle + (math.pi * 2) end
+	while correctedAngle > math.pi do correctedAngle = correctedAngle - (math.pi * 2) end
+
+	if player == player1 and correctedAngle < 0 then boss.hp = boss.hp - 1 end -- damage to boss
+	if player == player1 and correctedAngle > 0 then player1.hp = player1.hp - 1 end -- damage to player1
+	if player == player2 and correctedAngle < 0 then player2.hp = player2.hp - 1 end -- damage to player2
+	if player == player2 and correctedAngle > 0 then boss.hp = boss.hp - 1 end -- damage to boss
+
+	if boss.hp <= 0 then
+		boss.physics.body:destroy()
+		boss = nil
+	end
 end
 
 function drawBoss()
