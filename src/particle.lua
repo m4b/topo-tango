@@ -28,6 +28,32 @@ function initParticles ()
 
    particles.burst = burst
 
+
+   boss = {}
+   boss.scale = 1
+   boss.width = burstImg:getWidth()
+   boss.height = burstImg:getHeight()
+   -- laser boss: set bunch of properties for it
+   boss.particle = love.graphics.newParticleSystem(burstImg, 100)
+   boss.particle:setLifetime(1)
+   boss.particle:setSpread(math.rad(360)) -- in radians! this bug was not fun to track down
+   boss.particle:setEmissionRate(100)
+   boss.particle:setSpeed(100, 200)
+   boss.particle:setGravity(0)
+   boss.particle:setSizes(3, 5)
+--   boss.particle:setColors(255, 255, 255, 255, 0, 153, 255, 0)
+   boss.particle:setColors(220, 105, 20, 255, 194, 30, 18, 0) -- fire particle with part1.png
+   boss.particle:setLifetime(0.5)
+   boss.particle:setParticleLife(0.5)
+   boss.particle:setSpin(math.pi/2)
+   boss.particle:setSpinVariation(0,1)
+--   boss.particle:setRadialAcceleration(-1000)
+--   boss.particle:setTangentialAcceleration(-100) 
+   boss.particle:stop()
+
+   particles.boss = boss
+   
+
 end
 
 
@@ -38,6 +64,15 @@ function startParticles(x,y)
    particles.burst.particle:start()
 
 end
+
+function startBossParticles(x,y)
+
+   particles.boss.particle:setPosition(x, y)
+   particles.boss.particle:setDirection((math.rad(90)))
+   particles.boss.particle:start()
+
+end
+
 
 function drawParticles()
 
@@ -56,3 +91,7 @@ function updateParticles (dt)
       i.particle:update(dt)
    end
 end
+
+
+
+
