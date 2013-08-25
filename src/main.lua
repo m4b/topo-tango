@@ -41,7 +41,7 @@ function love.draw()
 		drawPlayers()
 		drawEnemies()
 	--	drawPlate()
-		drawCollisions()
+	--	drawCollisions()
 	love.graphics.pop()
 
 	love.graphics.setColor(0,0,0,192)

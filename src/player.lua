@@ -57,10 +57,10 @@ end
 
 function addControlsTo(object, up, down, left, right) -- assumes object has physics.body
 	object.controls = function(dt)
-		if love.keyboard.isDown(up)    then object.physics.body:applyForce(        0,-dt*50000) end
-		if love.keyboard.isDown(down)  then object.physics.body:applyForce(        0, dt*50000) end
-		if love.keyboard.isDown(left)  then object.physics.body:applyForce(-dt*50000,        0) end
-		if love.keyboard.isDown(right) then object.physics.body:applyForce( dt*50000,        0) end
+		if love.keyboard.isDown(up)    then object.physics.body:applyForce(        0,-dt*30000) end
+		if love.keyboard.isDown(down)  then object.physics.body:applyForce(        0, dt*30000) end
+		if love.keyboard.isDown(left)  then object.physics.body:applyForce(-dt*30000,        0) end
+		if love.keyboard.isDown(right) then object.physics.body:applyForce( dt*30000,        0) end
 	end
 end
 
