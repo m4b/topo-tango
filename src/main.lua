@@ -11,7 +11,7 @@ require 'particle'
 
 function love.load()
 
-   globalDebug = true
+   globalDebug = false
 
    love.graphics.setMode(640, 480) --, false, true, 4)
 	windowWidth = love.graphics.getWidth()
@@ -57,6 +57,8 @@ function love.update(dt)
 	updateCamera(dt)
 	updateWorld(dt)
 	updateRhythm(dt)
+	
+	updateParticles(dt)
 
 	for _, i in pairs(players) do
 		i.controls(dt)
@@ -76,11 +78,6 @@ end
 
 function love.draw()
 	drawCamera()
-
-	if globalDebug then
-	   love.graphics.print(text, 0, 0)
-	end
-
 
 	love.graphics.setColor(32,32,32)
 	-- draw the tiles
@@ -102,6 +99,8 @@ function love.draw()
 		i.draw()
 	end
 
+	drawParticles()
+
 --	drawPlate()
 
 end
@@ -109,15 +108,25 @@ end
 function love.keyreleased(key, unicode) if key == 'escape' then love.event.push('quit') end end
 
 
-function endContact(a, b, coll)
+function beginContact(a, b, coll)
 
    o1 = a:getUserData()
    o2 = b:getUserData()
---   print("o2" .. o2)
-   print(o2)
-   print("o1: " .. o1)
---   text = text .."\n".. o1 .." uncolliding with ".. o2
 
---   print(text)
+   -- can be just one contact point, i.e., can be nil
+   x1, y1, x2, y2 = coll:getPositions()
+
+   if globalDebug then 
+      text = text .."\n".. o1 .." colliding with ".. o2
+      print (text)
+   end
+
+   if string.sub(o1,1,#"player") == "player" and o2 == "enemy" then
+      startParticle(x1,y1)
+   elseif string.sub(o2,1,#"player") == "player" and o1 == "enemy" then
+      startParticle(x1,y1)
+   end
+	 
+
 
 end

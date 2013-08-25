@@ -1,8 +1,11 @@
+
+
+
 function initParticle ()
 
-   burstImg = love.graphics.newImage("graphics/twin-part.png")
-
    particles = {}
+
+   burstImg = love.graphics.newImage("graphics/twin-part.png")
 
    burst = {}
    burst.scale = 1 
@@ -11,7 +14,7 @@ function initParticle ()
    -- laser burst: set bunch of properties for it
    burst.particle = love.graphics.newParticleSystem(burstImg, 10)
    burst.particle:setLifetime(1)
-   burst.particle:setSpread(math.rad(45)) -- in radians! this bug was not fun to track down
+   burst.particle:setSpread(math.rad(360)) -- in radians! this bug was not fun to track down
    burst.particle:setEmissionRate(100)
    burst.particle:setSpeed(100, 200)
    burst.particle:setGravity(0)
@@ -29,13 +32,33 @@ function initParticle ()
 --   burst.particle:setTangentialAcceleration(1000) 
    burst.particle:stop()
 
+   particles.burst = burst
+
 end
 
 
-function endContact(laser, b, coll)
+function startParticle(x,y)
 
--- bah, numbering lasers won't work, because array changes, need pid or unique id
-   print ("i: " .. i)
-   print (laser .. " contacting " .. b)
+   particles.burst.particle:setPosition(x, y)
+   particles.burst.particle:setDirection((math.rad(90)))
+   particles.burst.particle:start()
 
+end
+
+function drawParticles()
+
+   for _,i in pairs(particles) do
+--      love.graphics.setColorMode("modulate")
+      love.graphics.setBlendMode("additive")
+      love.graphics.draw(i.particle)
+      love.graphics.setBlendMode("alpha")
+   end
+
+end
+
+function updateParticles (dt)
+
+   for _,i in pairs(particles) do
+      i.particle:update(dt)
+   end
 end
