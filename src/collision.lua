@@ -18,6 +18,7 @@ function beginContact(a, b, coll)
       local enemy = getEnemyByName(enemyName)
       if player and enemy then
 	 if player.colorState == enemy.colorState then
+	    love.audio.play(effects[1])
 	    enemy.hp = enemy.hp - 1
 	    enemy.colorState = 1 - enemy.colorState
 	    points = points + 1
@@ -27,6 +28,7 @@ function beginContact(a, b, coll)
 	    end
 	 else
 	    player.hp = player.hp - 1
+	    love.audio.play(effects[2])
 	    if player.hp <= 0 then deletePlayer(player) end		      end
       end
    end

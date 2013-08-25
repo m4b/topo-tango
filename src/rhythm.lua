@@ -2,9 +2,17 @@
 
 function initRhythm ()
 
+
    soundNames = 
       {"330", "440", "660", "880", "drum1", "drum2", "drum3", "pluck1", "pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4", "220-long", "110-saw"}
 
+   effectNames = {"enemy-hit", "enemy-miss"}
+
+   effects = {}
+   for i=1,#effectNames do
+      local p = love.audio.newSource("sound/" .. effectNames[i] .. ".ogg", "static")
+      table.insert(effects, p)
+   end
 
    trackDrum = {"pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4"}
    track1 =
