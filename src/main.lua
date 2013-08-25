@@ -11,6 +11,7 @@ require 'particle'
 require 'collision'
 require 'overlay'
 require 'junk'
+require 'boss'
 
 globalDebug = true
 
@@ -28,6 +29,7 @@ function love.load()
 	initOverlays()
 	initParticles()
 	initJunk()
+	initBoss()
 	love.graphics.setNewFont(8)
 --	love.graphics.setFont(love.graphics.newFont(8))
 	love.graphics.setLineWidth(10)
@@ -40,7 +42,7 @@ function love.update(dt)
 	updateParticles(dt)
 	processControls(dt)
 	updateEnemies(dt)
-
+	updateBoss(dt)
 end
 
 function love.draw()
@@ -52,6 +54,7 @@ function love.draw()
 	drawPlayers()
 	drawEnemies()
 	drawJunk()
+	drawBoss()
 	--	drawCollisions()
 	love.graphics.pop()
 

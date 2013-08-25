@@ -33,6 +33,13 @@ function beginContact(a, b, coll)
 	    if player.hp <= 0 then deletePlayer(player) end		      end
       end
    end
+
+   if (string.find(a:getUserData(),"boss") or string.find(b:getUserData(),"boss")) and playerName then
+      local player = getPlayerByName(playerName)
+      print(playerName.." collided with BOSS")
+      local normX,normY = coll:getNormal()
+      collideWithBoss(normX,normY,player)
+   end
 end
 
 function drawCollisions()

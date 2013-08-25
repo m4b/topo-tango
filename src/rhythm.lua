@@ -122,6 +122,7 @@ function updateRhythm (dt)
       end
 
       enemyStep()
+      bossStep()
       if current[tangoCounter] then
 	 love.audio.play(score[scoreCounter])
       end

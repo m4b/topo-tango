@@ -39,7 +39,6 @@ function addPhysicsCircleTo(object, x, y, radius, mode, callbackName) -- x,y = c
 	end
 end
 
-
 function addPhysicsPolygonTo(object, x, y, x1, y1, x2, y2, x3, y3, mode, callbackName) -- x,y = topleft corner
 --	object.width = width
 --	object.height = height
@@ -56,6 +55,6 @@ function addPhysicsPolygonTo(object, x, y, x1, y1, x2, y2, x3, y3, mode, callbac
 	object.draw = function()
 		love.graphics.polygon('fill', 
 				      object.physics.body:getWorldPoints(object.physics.shape:getPoints()))
-
 	end
 end
+
