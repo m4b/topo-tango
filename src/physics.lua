@@ -7,6 +7,7 @@ function addPhysicsRectangleTo(object, x, y, width, height, mode, callbackName) 
 	p.shape   = love.physics.newRectangleShape(width/2, height/2, width, height)
 	p.fixture = love.physics.newFixture(p.body, p.shape)
 	p.fixture:setUserData(callbackName)
+	p.fixture:setRestitution(.3)
 	object.physics = p
 
 	object.draw = function()
@@ -18,8 +19,6 @@ function addPhysicsRectangleTo(object, x, y, width, height, mode, callbackName) 
 	end
 end
 
-
-
 function addPhysicsCircleTo(object, x, y, radius, mode, callbackName) -- x,y = center
 	object.radius = radius
 
@@ -28,6 +27,7 @@ function addPhysicsCircleTo(object, x, y, radius, mode, callbackName) -- x,y = c
 	p.shape   = love.physics.newCircleShape(radius)
 	p.fixture = love.physics.newFixture(p.body, p.shape)
 	p.fixture:setUserData(callbackName)
+	p.fixture:setRestitution(.3)
 	object.physics = p
 
 	object.draw = function()

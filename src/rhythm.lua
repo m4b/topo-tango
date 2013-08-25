@@ -19,7 +19,7 @@ function initRhythm ()
    current = {}
    switchSpeed = 10 -- seconds?
 
-   tempo = 0.5 -- seconds
+   tempo = 0.2 -- seconds
 
    tempoCounter = 0
    switchCounter = 0
@@ -53,6 +53,8 @@ function initRhythm ()
    drums = {}
    for i=1,#trackDrum do
       local p = love.audio.newSource("sound/" .. trackDrum[i] .. ".ogg", "static")
+
+   if debug then print (p) end
       table.insert(drums, p)
    end
 
@@ -111,8 +113,8 @@ function updateRhythm (dt)
 	 print ("score: " .. #score)
       end
 
+      enemyStep()
       if current[tangoCounter] then
-	 updateEnemies()
 	 love.audio.play(score[scoreCounter])
       end
 
