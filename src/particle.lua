@@ -2,7 +2,7 @@ function initParticles ()
 
    particles = {}
 
-   burstImg = love.graphics.newImage("graphics/twin-part.png")
+   burstImg = love.graphics.newImage("image/twin-part.png")
 
    burst = {}
    burst.scale = 1 
