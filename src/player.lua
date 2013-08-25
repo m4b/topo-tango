@@ -1,3 +1,5 @@
+numPlayers = 0
+
 function addControlsTo(object, up, down, left, right) -- assumes object has physics.body
 	object.controls = function(dt)
 		if love.keyboard.isDown(up)    then object.physics.body:applyForce(       0, -dt*100) end
@@ -11,7 +13,8 @@ function createPlayer(x, y,                  -- position
                       r, g, b,               -- color
                       up, down, left, right) -- controls
 	local player = {}
-	addPhysicsCircleTo(player, x, y, 7, 'dynamic', "CALLBACK")
+	numPlayers = numPlayers + 1 -- added
+	addPhysicsCircleTo(player, x, y, 7, 'dynamic', 'player')
 	addColorTo(player, r, g, b)
 	addControlsTo(player, up, down, left, right)
 
@@ -42,3 +45,6 @@ function createPlayer(x, y,                  -- position
 
 	return player
 end
+
+
+

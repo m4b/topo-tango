@@ -7,8 +7,12 @@ require 'player'
 require 'rhythm'
 require 'enemy'
 require 'plate'
+require 'particle'
 
 function love.load()
+
+   globalDebug = true
+
    love.graphics.setMode(640, 480) --, false, true, 4)
 	windowWidth = love.graphics.getWidth()
 	windowHeight = love.graphics.getHeight()
@@ -20,7 +24,7 @@ function love.load()
 
 	for i = 0, 39 do for j = 0, 29 do if grid[i][j] == 1 then
 		local entity = {}
-		addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'CALLBACK')
+		addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'grid')
 		entity.draw = function() -- overwrite default physicsRectangle draw
 			love.graphics.setColor(0,153,255)
 			love.graphics.rectangle('fill', i*16, j*16+1, 16, 14)
@@ -39,7 +43,10 @@ function love.load()
 	initCamera()
 	initRhythm()
 	initEnemies()
+	initParticle()
 --	initPlate()
+
+	text = "" --- callback debug string
 
 end
 
@@ -57,14 +64,23 @@ function love.update(dt)
 
 	for _, i in pairs(enemies) do
 	   i.update(dt)
---	   i.physics.body:applyLinearImpulse(math.random(-10,10),math.random(-10,10))
 	end
+
+	if string.len(text) > 768 then
+	   text = ""
+	end
+
+
 end
 
                                 ---- render ----
 
 function love.draw()
 	drawCamera()
+
+	if globalDebug then
+	   love.graphics.print(text, 0, 0)
+	end
 
 
 	love.graphics.setColor(32,32,32)
@@ -92,3 +108,17 @@ function love.draw()
 end
 
 function love.keyreleased(key, unicode) if key == 'escape' then love.event.push('quit') end end
+
+
+function endContact(a, b, coll)
+
+   o1 = a:getUserData()
+   o2 = b:getUserData()
+--   print("o2" .. o2)
+   print(o2)
+   print("o1: " .. o1)
+--   text = text .."\n".. o1 .." uncolliding with ".. o2
+
+--   print(text)
+
+end
