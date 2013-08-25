@@ -31,9 +31,9 @@ function love.load()
 
 	players = {}
 	local redCoords = getEmptyTile(grid)
-	table.insert(players, createPlayer(redCoords.x*16+8, redCoords.y*16+8, 255, 0, 0, 'w', 's', 'a', 'd'))
+	table.insert(players, createPlayer(redCoords.x*16+8, redCoords.y*16+8, 255, 153, 0, 'w', 's', 'a', 'd'))
 	local blueCoords = getEmptyTile(grid)
-	table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 0, 0, 255, 'up', 'down', 'left', 'right'))
+	table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 153, 255, 0, 'up', 'down', 'left', 'right'))
 
 
 	initCamera()
@@ -70,7 +70,7 @@ function love.draw()
 	love.graphics.setColor(32,32,32)
 	-- draw the tiles
 	for i = 0, 39 do for j = 0, 29 do
-	--	love.graphics.rectangle('fill',i*16+2,j*16+2,12,12)
+		love.graphics.rectangle('fill',i*16+2,j*16+2,12,12)
 	end end
 
 	for _, i in pairs(entities) do
