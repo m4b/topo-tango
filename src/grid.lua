@@ -10,7 +10,7 @@ function initGrid()
 		local entity = {}
 		if grid[i][j] == 1 then
 			grid[i][j] = 2
-			addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'CALLBACK')
+			addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'grid')
 			entity.draw = function() -- overwrite default physicsRectangle draw
 				local multiplier = math.sin(i+j+love.timer.getTime()*10)*.2+.8
 				love.graphics.setColor(0,153*multiplier,255*multiplier)

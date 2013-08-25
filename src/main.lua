@@ -11,9 +11,12 @@ require 'particle'
 require 'collision'
 require 'overlay'
 
+globalDebug = true
+
 function love.load()
 	windowWidth = love.graphics.getWidth()
 	windowHeight = love.graphics.getHeight()
+
 
 	initWorld()
 	initGrid()
@@ -22,8 +25,9 @@ function love.load()
 	initRhythm()
 	initEnemies()
 	initOverlays()
-	--love.graphics.newFont(8))
-	love.graphics.setFont(love.graphics.newFont(8))
+	initParticles()
+	love.graphics.setNewFont(8)
+--	love.graphics.setFont(love.graphics.newFont(8))
 	love.graphics.setLineWidth(10)
 end
 
@@ -44,6 +48,7 @@ function love.draw()
 	drawGrid()
 	drawPlayers()
 	drawEnemies()
+	drawParticles()
 	--	drawCollisions()
 	love.graphics.pop()
 
@@ -57,28 +62,6 @@ function love.draw()
 	love.graphics.print("HP: "..player2.hp,10,26)
 
 	drawOverlays()
-end
-
-
-
-function beginContact(a, b, coll)
-
-   o1 = a:getUserData()
-   o2 = b:getUserData()
-
-   -- can be just one contact point, i.e., can be nil
-   x1, y1, x2, y2 = coll:getPositions()
-
-   if globalDebug then 
-      text = text .."\n".. o1 .." colliding with ".. o2
-      print (text)
-   end
-
-   if string.sub(o1,1,#"player") == "player" and o2 == "enemy" then
-      startParticle(x1,y1)
-   elseif string.sub(o2,1,#"player") == "player" and o1 == "enemy" then
-      startParticle(x1,y1)
-   end
 
 end
 

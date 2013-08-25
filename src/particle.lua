@@ -1,7 +1,4 @@
-
-
-
-function initParticle ()
+function initParticles ()
 
    particles = {}
 
@@ -37,7 +34,7 @@ function initParticle ()
 end
 
 
-function startParticle(x,y)
+function startParticles(x,y)
 
    particles.burst.particle:setPosition(x, y)
    particles.burst.particle:setDirection((math.rad(90)))
