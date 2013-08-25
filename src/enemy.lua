@@ -58,6 +58,7 @@ function createEnemy(x, y, rotation)
 	enemy.invertedStep = math.random(0,1)
 	enemy.colorState = math.random(0,1)
 	enemy.hp = 5
+	enemy.pulseOffset = math.random(0,10)/10 * math.pi
 
 	-- goal location & rotation in grid, exact
 	enemy.grid = {}
@@ -174,13 +175,27 @@ function createEnemy(x, y, rotation)
 
 	enemy.draw = function()
 		love.graphics.push()
+			local r,g
+			local radius = enemy.hp + 1
+			local pulse = math.sin(love.timer.getTime()*8+enemy.pulseOffset)*.5+.5
+			if enemy.colorState == 0 then r,g = 255,153
+			                         else r,g = 153,255 end
+
 			love.graphics.translate(enemy.goal.x+8,enemy.goal.y+8)
 			love.graphics.rotate(enemy.goal.rotation*math.pi*.5)
-			love.graphics.setColor(255,255,255)
-			love.graphics.rectangle('fill',-8,-8,16,16)
-			if enemy.colorState == 0 then love.graphics.setColor(255,153,0);
-				                 else love.graphics.setColor(153,255,0);end
-			love.graphics.rectangle('fill',-6,-6,12,12)
+
+			love.graphics.setColor(r+(255-r)*pulse,g+(255-g)*pulse,255*pulse)
+--			love.graphics.rectangle('fill',-8,-8,16,16)
+
+			love.graphics.rectangle('fill',-8, -7, 16, 14)
+			love.graphics.rectangle('fill', -7,-8, 14, 16)
+			love.graphics.triangle('fill', -7, -8, -8, -7, -7, -7)
+			love.graphics.triangle('fill',  7, -8,  8, -7,  7, -7)
+			love.graphics.triangle('fill', -7,  8, -8,  7, -7,  7)
+			love.graphics.triangle('fill',  7,  8,  8,  7,  7,  7)
+
+			love.graphics.setColor(r+(255-r)*(1-pulse),g+(255-g)*(1-pulse),255*(1-pulse))
+			love.graphics.rectangle('fill',-radius,-radius,radius*2,radius*2)
 			love.graphics.rectangle('fill',-2,4,4,8)
 		love.graphics.pop()
 	end
