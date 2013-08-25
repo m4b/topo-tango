@@ -6,6 +6,7 @@ require 'physics'
 require 'player'
 require 'rhythm'
 require 'enemy'
+require 'plate'
 
 function love.load()
    love.graphics.setMode(640, 480) --, false, true, 4)
@@ -13,8 +14,6 @@ function love.load()
 	windowHeight = love.graphics.getHeight()
 
 	initWorld()
-	initCamera()
-	initRhythm()
 
 	grid = genLevel()
 	entities = {}
@@ -36,8 +35,14 @@ function love.load()
 	local blueCoords = getEmptyTile(grid)
 	table.insert(players, createPlayer(blueCoords.x*16+8, blueCoords.y*16+8, 0, 0, 255, 'up', 'down', 'left', 'right'))
 
+
+	initCamera()
+	initRhythm()
 	initEnemies()
+--	initPlate()
+
 end
+
 
                                 ---- update ----
 
@@ -51,7 +56,8 @@ function love.update(dt)
 	end
 
 	for _, i in pairs(enemies) do
-		i.update(dt)
+	   i.update(dt)
+--	   i.physics.body:applyLinearImpulse(math.random(-10,10),math.random(-10,10))
 	end
 end
 
@@ -59,6 +65,7 @@ end
 
 function love.draw()
 	drawCamera()
+
 
 	love.graphics.setColor(32,32,32)
 	-- draw the tiles
@@ -79,6 +86,9 @@ function love.draw()
 	for _, i in pairs(enemies) do
 		i.draw()
 	end
+
+--	drawPlate()
+
 end
 
 function love.keyreleased(key, unicode) if key == 'escape' then love.event.push('quit') end end

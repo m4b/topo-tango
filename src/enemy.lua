@@ -4,7 +4,7 @@ function initEnemies()
 	enemyWalkSpeed = 100
 	enemyRotationSpeed = 10
 	enemies = {}
-	numEnemies = 100
+	numEnemies = 10
 
 	for i=1,numEnemies do
 		local emptyCoords = getEmptyTile(grid)
@@ -34,7 +34,7 @@ function createEnemy(x, y, rotation)
 	enemy.goal.rotation = rotation*math.pi/2
 
 	-- location & rotation in grid, pixel val
-	addPhysicsRectangleTo(enemy, x*16, y*16, 16, 16, 'static', "CALLBACK")
+	addPhysicsRectangleTo(enemy, x*16, y*16, 16, 16, 'dynamic', "CALLBACK")
 
 	-- movement sequence and track #
 	enemy.sequence = {}
@@ -43,9 +43,6 @@ function createEnemy(x, y, rotation)
 
 	-- update regardless of beat
 	enemy.update = function(dt)
-		if tempoCounter >= tempo then
-			enemy.readNextNode()
-		end
 
 		local gridX = enemy.grid.x * 16
 		local gridY = enemy.grid.y * 16
@@ -113,7 +110,7 @@ function createEnemy(x, y, rotation)
 	end
 
 	-- draw
-	enemy.draw = function()
+		enemy.draw = function()
 		love.graphics.push()
 			love.graphics.translate(enemy.goal.x+8,enemy.goal.y+8)
 			love.graphics.rotate(enemy.goal.rotation*math.pi*.5)

@@ -1,6 +1,6 @@
 function initWorld()
 	love.physics.setMeter(100)
-	world = love.physics.newWorld(0, 0, true)
+	world = love.physics.newWorld(0, 0, false)
 end
 
 function updateWorld(dt)

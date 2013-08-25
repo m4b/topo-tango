@@ -18,6 +18,8 @@ function addPhysicsRectangleTo(object, x, y, width, height, mode, callbackName) 
 	end
 end
 
+
+
 function addPhysicsCircleTo(object, x, y, radius, mode, callbackName) -- x,y = center
 	object.radius = radius
 
