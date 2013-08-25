@@ -19,7 +19,7 @@ function initRhythm ()
    current = {}
    switchSpeed = 10 -- seconds?
 
-   tempo = 0.5 -- seconds
+   tempo = 0.2 -- seconds
 
    tempoCounter = 0
    switchCounter = 0
