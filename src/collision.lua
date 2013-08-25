@@ -24,6 +24,7 @@ function beginContact(a, b, coll)
 	    points = points + 1
 	    if enemy.hp <= 0 then
 	       deleteEnemy(enemy)
+	       love.audio.play(effects[3])
 	       print("TANGO!")
 	    end
 	 else
