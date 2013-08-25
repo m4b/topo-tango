@@ -3,7 +3,7 @@
 function initRhythm ()
 
    soundNames = 
-      {"440", "660", "880", "drum1", "drum2", "drum3", "pluck1", "pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4"}
+      {"330", "440", "660", "880", "drum1", "drum2", "drum3", "pluck1", "pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4", "220-long", "110-saw"}
 
 
    trackDrum = {"pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4"}
