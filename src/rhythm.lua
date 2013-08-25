@@ -15,7 +15,7 @@ function initRhythm ()
 --   meter = 3
    tangoSize = 5
    scoreSize = meter * 2 -- 10 is constant
-   debug = true
+   debug = false
    current = {}
    switchSpeed = 10 -- seconds?
 
@@ -38,8 +38,8 @@ function initRhythm ()
 
    current = tango[math.random(1,#tango)]
 
-   print("current contents:")
    if debug then
+      print("current contents:")
       for i=1,#current do
 	 print(current[i])
       end
@@ -53,7 +53,7 @@ function initRhythm ()
    drums = {}
    for i=1,#trackDrum do
       local p = love.audio.newSource("sound/" .. trackDrum[i] .. ".ogg", "static")
-      print (p)
+      if debug then print (p) end
       table.insert(drums, p)
    end
 
@@ -90,13 +90,15 @@ function updateRhythm (dt)
 	 switchCounter = 1
       end
 
-      print(gridtest)
-
-      print("current contents:")
       if debug then
-	 for i=1,#current do
-	    print(current[i])
-	 end
+         print(gridtest)
+
+         print("current contents:")
+         if debug then
+	    for i=1,#current do
+	       print(current[i])
+            end
+         end
       end
 
       if tangoCounter > #current then
