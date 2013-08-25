@@ -37,6 +37,7 @@ function beginContact(a, b, coll)
    if (string.find(a:getUserData(),"boss") or string.find(b:getUserData(),"boss")) and playerName then
       local player = getPlayerByName(playerName)
       startBossParticles(obj.x,obj.y, playerName)
+      startBossExplode(obj.x,obj.y)
       print(playerName.." collided with BOSS")
       local normX,normY = coll:getNormal()
       collideWithBoss(normX,normY,player)

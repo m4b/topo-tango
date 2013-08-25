@@ -28,7 +28,6 @@ function initParticles ()
 
    particles.burst = burst
 
-
    boss = {}
    boss.scale = 1
    boss.width = burstImg:getWidth()
@@ -51,7 +50,6 @@ function initParticles ()
    boss.particle:stop()
 
    particles.boss = boss
-   
 
 end
 
@@ -71,6 +69,24 @@ function startBossParticles(x,y,name)
    end
    particles.boss.particle:setPosition(x, y)
    particles.boss.particle:setDirection((math.rad(90)))
+   particles.boss.particle:start()
+
+end
+
+function startBossExplode(x,y)
+
+   particles.boss.particle:setEmissionRate(400)
+   particles.boss.particle:setSpeed(200, 400)
+   particles.boss.particle:setGravity(0)
+   particles.boss.particle:setSizes(4, 10)
+   particles.boss.particle:setColors(220, 105, 20, 255, 194, 30, 18, 0) -- fire 
+   particles.boss.particle:setLifetime(4.0)
+   particles.boss.particle:setParticleLife(1.0)
+
+   particles.boss.particle:setPosition(x, y)
+   particles.boss.particle:setDirection((math.rad(90)))
+   particles.boss.particle:setRadialAcceleration(-1000)
+--   particles.boss.particle:setTangentialAcceleration(-100) 
    particles.boss.particle:start()
 
 end
