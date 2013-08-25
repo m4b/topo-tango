@@ -3,8 +3,10 @@
 function initRhythm ()
 
    soundNames = 
-      {"440", "660", "880", "drum1", "drum2", "drum3", "pluck1"}
+      {"440", "660", "880", "drum1", "drum2", "drum3", "pluck1", "pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4"}
 
+
+   trackDrum = {"pluck2", "pluck3", "drum-new1", "drum-new2", "drum-new3", "drum-new4"}
    track1 =
       {"440", "660", "880", "drum1", "drum2", "drum3", "pluck1"}
 
@@ -48,6 +50,19 @@ function initRhythm ()
       table.insert(sounds, p)
    end
 
+   drums = {}
+   for i=1,#trackDrum do
+      local p = love.audio.newSource("sound/" .. trackDrum[i] .. ".ogg", "static")
+      print (p)
+      table.insert(drums, p)
+   end
+
+   beat = {}
+   for i=1,meter do
+      local r = math.random(1,#drums)
+      beat[i] = drums[r]
+   end
+   
 
    score = {}
 --   score = {sounds[1], sounds[2],sounds[2]}
@@ -103,6 +118,8 @@ function updateRhythm (dt)
 	 updateEnemies()
 	 love.audio.play(score[scoreCounter])
       end
+
+      love.audio.play(beat[tangoCounter])
 
    end
 
