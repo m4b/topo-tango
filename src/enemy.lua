@@ -4,7 +4,7 @@ function initEnemies()
 	enemyWalkSpeed = 100
 	enemyRotationSpeed = 10
 	enemies = {}
-	numEnemies = 10
+	numEnemies = 100
 
 	for i=1,numEnemies do
 		local emptyCoords = getEmptyTile(grid)
@@ -20,6 +20,8 @@ end
 
 function createEnemy(x, y, rotation)
 	local enemy = {}
+
+	enemy.state = math.random(0,1)
 
 	-- goal location & rotation in grid, exact
 	enemy.grid = {}
@@ -114,7 +116,11 @@ function createEnemy(x, y, rotation)
 		love.graphics.push()
 			love.graphics.translate(enemy.goal.x+8,enemy.goal.y+8)
 			love.graphics.rotate(enemy.goal.rotation*math.pi*.5)
+			love.graphics.setColor(255,255,255)
 			love.graphics.rectangle('fill',-8,-8,16,16)
+			if enemy.state == 0 then love.graphics.setColor(255,153,0);
+			                    else love.graphics.setColor(153,255,0);end
+			love.graphics.rectangle('fill',-5,-5,10,10)
 		love.graphics.pop()
 	end
 
