@@ -40,8 +40,7 @@ function initParticles ()
    boss.particle:setEmissionRate(100)
    boss.particle:setSpeed(100, 200)
    boss.particle:setGravity(0)
-   boss.particle:setSizes(3, 5)
---   boss.particle:setColors(255, 255, 255, 255, 0, 153, 255, 0)
+   boss.particle:setSizes(1, 3)
    boss.particle:setColors(220, 105, 20, 255, 194, 30, 18, 0) -- fire particle with part1.png
    boss.particle:setLifetime(0.5)
    boss.particle:setParticleLife(0.5)
@@ -56,7 +55,6 @@ function initParticles ()
 
 end
 
-
 function startParticles(x,y)
 
    particles.burst.particle:setPosition(x, y)
@@ -65,8 +63,12 @@ function startParticles(x,y)
 
 end
 
-function startBossParticles(x,y)
+function startBossParticles(x,y,name)
 
+   particles.boss.particle:setColors(153, 255, 0, 255, 194, 30, 18, 0)
+   if name == "player_0" then
+      particles.boss.particle:setColors(255, 153, 0, 255, 194, 30, 18, 0)
+   end
    particles.boss.particle:setPosition(x, y)
    particles.boss.particle:setDirection((math.rad(90)))
    particles.boss.particle:start()
