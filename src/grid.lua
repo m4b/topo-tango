@@ -12,7 +12,7 @@ function initGrid()
 			grid[i][j] = 2
 			addPhysicsRectangleTo(entity, i*16, j*16, 16, 16, 'static', 'CALLBACK')
 			entity.draw = function() -- overwrite default physicsRectangle draw
-				local multiplier = math.sin((i+j+love.timer.getTime()*10)*.5)*.2+.8
+				local multiplier = math.sin(i+j+love.timer.getTime()*10)*.2+.8
 				love.graphics.setColor(0,153*multiplier,255*multiplier)
 				love.graphics.rectangle('fill', i*16, j*16+1, 16, 14)
 				love.graphics.rectangle('fill', i*16+1, j*16, 14, 16)

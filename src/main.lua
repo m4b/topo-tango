@@ -8,9 +8,9 @@ require 'rhythm'
 require 'enemy'
 require 'plate'
 require 'collision'
+require 'overlay'
 
 function love.load()
-	love.graphics.setMode(600, 400, false, true, 4)
 	windowWidth = love.graphics.getWidth()
 	windowHeight = love.graphics.getHeight()
 
@@ -20,6 +20,7 @@ function love.load()
 	initCamera()
 	initRhythm()
 	initEnemies()
+	initOverlays()
 --	initPlate()
 
 	love.graphics.setFont(love.graphics.newFont(8))
@@ -51,7 +52,10 @@ function love.draw()
 	love.graphics.setColor(255,153,0)
 	love.graphics.print("HP: "..player1.hp,10,18)
 	love.graphics.setColor(153,255,0)
-	love.graphics.print("HP: "..player1.hp,10,26)
+	love.graphics.print("HP: "..player2.hp,10,26)
+
+	drawOverlays()
 end
 
 function love.keyreleased(key, unicode) if key == 'escape' then love.event.push('quit') end end
+function love.keypressed(key, unicode) displayImage = displayImage + 1 end
