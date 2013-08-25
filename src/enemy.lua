@@ -34,7 +34,7 @@ function createEnemy(x, y, rotation)
 	enemy.goal.rotation = rotation*math.pi/2
 
 	-- location & rotation in grid, pixel val
-	addPhysicsRectangleTo(enemy, x*16, y*16, 16, 16, 'dynamic', "CALLBACK")
+	addPhysicsRectangleTo(enemy, x*16, y*16, 16, 16, 'static', "CALLBACK")
 
 	-- movement sequence and track #
 	enemy.sequence = {}
