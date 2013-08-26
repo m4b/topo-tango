@@ -42,9 +42,9 @@ function initJunk ()
       --]]
 
       addColorTo(p,
-		 r + math.random(colorVariance),
-		 g - math.random(colorVariance),
-		 b - math.random(colorVariance))
+		 r,
+		 g,
+		 b)
       table.insert(junk, p)
    end
 
