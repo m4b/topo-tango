@@ -1,5 +1,4 @@
 require 'particle'
-
 function initBoss()
 	bossSpawned = false
 	defeatedBoss = false
@@ -50,7 +49,8 @@ function bossStep()
 end
 
 function updateBoss(dt)
-	if table.getn(enemies) <= 0 and bossSpawned == false then
+
+	if table.getn(enemies) <= 0 and bossSpawned == false  then
 		bossSpawned = true
 		spawnBoss()
 	end

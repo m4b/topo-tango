@@ -4,7 +4,7 @@ function initJunk ()
    numJunk = 150
    widthVariance = 4
    heightVariance = 8
-   colorVariance = 0
+   colorVariance = 1
 
    local r = 0
    local g = 96
