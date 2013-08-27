@@ -1,8 +1,8 @@
 function initGrid()
-	local width = 20
+	local width = 30
 	local height = 20
 
-	grid = genLevel(width,height,2)
+	grid = genLevel(width,height,3)
 	local test = genLevel(width,height,1)
 	entities = {}
 
