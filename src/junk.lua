@@ -1,7 +1,7 @@
 function initJunk ()
 
    junk = {}
-   numJunk = 150
+   numJunk = 200
    widthVariance = 4
    heightVariance = 8
    colorVariance = 1

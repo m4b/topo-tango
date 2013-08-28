@@ -1,11 +1,11 @@
-require 'particle'
 function initBoss()
 	bossSpawned = false
 	defeatedBoss = false
 end
 
 function spawnBoss()
-   if not defeatedBoss then
+   if not bossSpawned and not defeatedBoss then
+	bossSpawned = true
 	boss = {}
 	boss.maxHp = 20
 	boss.hp = boss.maxHp
@@ -34,7 +34,7 @@ function spawnBoss()
 end
 
 function bossStep()
-	if bossSpawned then
+	if boss and bossSpawned and not defeatedBoss then
 		local nextNote = boss.sequence[tangoCounter]
 		local angle = boss.physics.body:getAngle()
 
@@ -49,11 +49,7 @@ function bossStep()
 end
 
 function updateBoss(dt)
-
-	if table.getn(enemies) <= 0 and bossSpawned == false  then
-		bossSpawned = true
-		spawnBoss()
-	end
+	if table.getn(enemies) <= 0 and not bossSpawned and not defeatedBoss then spawnBoss() end
 end
 
 function collideWithBoss(normX,normY,player)
@@ -65,29 +61,33 @@ function collideWithBoss(normX,normY,player)
 	if player == player1 and correctedAngle < 0 then
 	   boss.hp = boss.hp - 1 
 	   points = points + 1
+	   love.audio.play(effects[1])
 	end -- damage to boss
 	if player == player1 and correctedAngle > 0 then
 	   player1.hp = player1.hp - 1 
+	   love.audio.play(effects[2])
 	end -- damage to player1
 	if player == player2 and correctedAngle < 0 then
 	   player2.hp = player2.hp - 1 
+	   love.audio.play(effects[2])
 	end -- damage to player2
 	if player == player2 and correctedAngle > 0 then
 	   boss.hp = boss.hp - 1
 	   points = points + 1
+	   love.audio.play(effects[1])
 	end -- damage to boss
 
 	if boss.hp <= 0 then
+	   love.audio.play(effects[3])
 	   startBossExplode(boss.physics.body:getX(),boss.physics.body:getY())
 	   boss.physics.body:destroy()
 	   boss = nil
-	   bossSpawned = false
 	   bossDefeated = true
 	end
 end
 
 function drawBoss()
-	if bossSpawned then
+	if boss and bossSpawned and not defeatedBoss then
 	   boss.draw()
 	end
 end
